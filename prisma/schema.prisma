@@ -9,11 +9,21 @@ datasource db {
 
 model Pokemon {
 
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   description String
-  type        String
+  types       Types[]
 
 
   @@map("pokemons")
+}
+
+model Types {
+  id    String  @id @default(uuid())
+  name  String
+  power Decimal
+
+  Pokemon   Pokemon? @relation(fields: [pokemonId], references: [id])
+  pokemonId String?
+  @@map("types")
 }
